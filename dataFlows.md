@@ -123,30 +123,30 @@ Alternate options for access
 
 ***  
 
-## Search Entire Repository
+## Search Entire Repository / Community / Collection
 * Get breadcrumb data
   * /api/core/hierarchy/ancestors/:node
-    * "top" or repo uuid
-* Get Browse Options for whole repo
+    * "top" or repo uuid or comm/coll uuid
+* Get Browse Options for whole repo / comm / coll
   * /api/discovery/:node/browse-options
-    * :node = "top" or repo uuid
+    * :node = "top" or repo uuid or comm/coll uuid
 * Search repository for items
   * /api/discovery/:node/search
-    * :node = "top" or repo uuid
+    * :node = "top" or repo uuid or comm/coll uuid
     * ?query = solr query for "search" repo
     * ?page = page number
     * ?size = page size
     * ?sort-mode = choose from available sort options, the default sort will be used if not specified
 * Get Facet Options related to search hits
   * /api/discovery/:node/search/facets
-    * :node = community/collection uuid
+    * :node = "top" or repo uuid or comm/coll uuid
     * ?query = solr query for "search" repo
 * Return the list of available sort modes for a particular node
   * /api/discovery/:node/sort-modes
-    * :node = "top" or repo uuid
+    * :node = "top" or repo uuid or comm/coll uuid
 * Retrun the list of available advanced search filters for a particular node
   * /api/discovery/:node/search-filters
-    * :node = "top" or repo uuid
+    * :node = "top" or repo uuid or comm/coll uuid
 * Assumption: Discovery service will return core metadata for each item
 * Get bitstreams for search results (iterate over results)
   * /api/core/bitstreams/:node/:bundle/:num
