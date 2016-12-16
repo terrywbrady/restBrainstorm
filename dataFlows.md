@@ -17,32 +17,36 @@ Alternate options for access
 * /api/_cation_/handle/:handle-prefix/:handle_suffix
 
 ## Main Page Load
-* Get breadcrumb data - returns nothing but a descriptive name at the top level
-  * GET /api/core/hierarchy/ancestors/:node
-    * :node = "top" or repo uuid  
-* Get Welcome Message
-  * GET /api/core/config/:prop-group
-    * :prop-group = ui
-    * :prop-name = welcome
-* Get List of Top Communities
-  GET * /api/core/hierarchy/descendants/:node/:depth
-    * :node = "top" or repo uuid
-    * :depth = 1 to pull top level descendants
-* Get Browse Options for whole repo
-  * GET /api/discovery/:node/browse-options
-    * :node = "top" or repo uuid
-* Get Facet Options for whole repo
-  * GET /api/discovery/:node/facets
-    * :node = "top" or repo uuid
-* Get Default Browse Option (likely recent items)
-  * GET /api/browse/:node/:browse-mode
-    * :node = "top" or repo uuid
-    * :browse-mode = default - likely recent items
-    * ?page - defaults to 0
-    * ?size - defaults to default page size for node
-* Get Available Actions for the Node (create community, edit community)
-  * GET /api/actions/:node
-    * :node = "top" or repo uuid
+* Browse to the repository landing page, retrieve relevant resources
+  * GET /api/browse/page/:node
+      * :node = "top" or repo uuid  
+  * This call will load all of the relevant resources which could be called individually
+    * Get breadcrumb data - returns nothing but a descriptive name at the top level
+      * GET /api/core/hierarchy/ancestors/:node
+        * :node = "top" or repo uuid  
+    * Get Welcome Message
+      * GET /api/core/config/:prop-group
+        * :prop-group = ui
+        * :prop-name = welcome
+    * Get List of Top Communities
+      * GET /api/core/hierarchy/descendants/:node/:depth
+        * :node = "top" or repo uuid
+        * :depth = 1 to pull top level descendants
+    * Get Browse Options for whole repo
+      * GET /api/discovery/:node/browse-options
+        * :node = "top" or repo uuid
+    * Get Facet Options for whole repo
+      * GET /api/discovery/:node/facets
+        * :node = "top" or repo uuid
+    * Get Default Browse Option (likely recent items)
+      * GET /api/browse/items/:node/:browse-mode
+        * :node = "top" or repo uuid
+        * :browse-mode = default - likely recent items
+        * ?page - defaults to 0
+        * ?size - defaults to default page size for node
+    * Get Available Actions for the Node (create community)
+      * GET /api/actions/:node
+        * :node = "top" or repo uuid
 
 #### How to bundle the information above?
   * GET /api/core/hierarchy/browse/:node
