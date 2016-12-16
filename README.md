@@ -11,3 +11,7 @@
 * Admin Tasks
   * Could all admin tasks and command line tasks be collapsed into curation tasks (with parameters and output)
   * Could many custom admin endpoints be simplified if a corresponding curation task could be invoked?
+
+## REST or UI?
+* Is the rest api involved in theme selection?  Is this a simple return of a config mapping?
+* How does metadata enrichment for Google Scholar or Google (schema.org) take place?  Is this fully handled by the UI?
