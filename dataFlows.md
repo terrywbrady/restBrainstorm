@@ -59,29 +59,29 @@ Why?
 
 ***  
 
-## Browse Community
-* Get core metadata data for community (name, handle)
-  * /api/core/community/:node
-    * :node = community uuid
+## Browse Community/Collection
+* Get core metadata data for community/collection (name, handle)
+  * /api/core/dso/:node
+    * :node = community/collection uuid
 * Get descriptive metadata data for community
   * /api/core/metadata/:node
-    * :node = community uuid
+    * :node = community/collection uuid
 * Get breadcrumb data
   * /api/core/hierarchy/ancestors/:node
-    * :node = community uuid
+    * :node = community/collection uuid
 * Get descendant subcommunities and collections
   * /api/core/hierarchy/descendants/:node/:depth
-    * :node = community uuid
+    * :node = community/collection uuid
     * :depth = 1 to pull direct subcommunity and collection descendants
 * Get Browse Options for community
   * /api/discovery/:node/browse-options
-    * :node = community uuid
+    * :node = community/collection uuid
 * Get Facet Options for community
   * /api/discovery/:node/facets
-    * :node = community uuid
+    * :node = community/collection uuid
 * Get Default Browse Option (likely recent items)
   * /api/browse/:node/:mode
-    * :node = community uuid
+    * :node = community/collection uuid
     * :mode = default - likely recent items
 * Get Available Actions for the Node (create top community)
   * /api/actions/:node
@@ -89,40 +89,7 @@ Why?
 
 #### How to bundle the information above?
   * /api/core/hierarchy/browse/:node
-    * :node = community uuid
+    * :node = community/collection uuid
 
 ***  
 
-## Browse Community
-* Get core metadata data for community (name, handle)
-  * /api/core/community/:node
-    * :node = community uuid
-* Get descriptive metadata data for community
-  * /api/core/metadata/:node
-    * :node = community uuid
-* Get breadcrumb data
-  * /api/core/hierarchy/ancestors/:node
-    * :node = community uuid
-* Get descendant subcommunities and collections
-  * /api/core/hierarchy/descendants/:node/:depth
-    * :node = community uuid
-    * :depth = 1 to pull direct subcommunity and collection descendants
-* Get Browse Options for community
-  * /api/discovery/:node/browse-options
-    * :node = community uuid
-* Get Facet Options for community
-  * /api/discovery/:node/facets
-    * :node = community uuid
-* Get Default Browse Option (likely recent items)
-  * /api/browse/:node/:mode
-    * :node = community uuid
-    * :mode = default - likely recent items
-    * ?page - defaults to 0
-    * ?size - defaults to default page size for node
-* Get Available Actions for the Node (create sub-community, create collection, edit community)
-  * /api/actions/:node
-    * :node = "top" or repo uuid
-
-#### How to bundle the information above?
-  * /api/core/hierarchy/browse/:node
-    * :node = community uuid
