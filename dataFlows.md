@@ -12,6 +12,7 @@ Why?
 * Handles may be more accessible in an ajax add-on.  
 * Handles are preserved in AIP export/import - could allow for test re-use
 
+Alternate options for access
 * /api/_action_/uuid/:uuid
 * /api/_cation_/handle/:handle-prefix/:handle_suffix
 
@@ -123,9 +124,34 @@ Why?
 ***  
 
 ## Search Entire Repository
+* Get breadcrumb data
+  * /api/core/hierarchy/ancestors/:node
+    * "top" or repo uuid
+* Get Browse Options for whole repo
+  * /api/discovery/:node/browse-options
+    * :node = "top" or repo uuid
 * Search repository for items
   * /api/discovery/:node/search
     * :node = "top" or repo uuid
     * ?query = solr query for "search" repo
     * ?page = page number
     * ?size = page size
+    * ?sort-mode = choose from available sort options, the default sort will be used if not specified
+* Get Facet Options related to search hits
+  * /api/discovery/:node/search/facets
+    * :node = community/collection uuid
+    * ?query = solr query for "search" repo
+* Return the list of available sort modes for a particular node
+  * /api/discovery/:node/sort-modes
+    * :node = "top" or repo uuid
+* Retrun the list of available advanced search filters for a particular node
+  * /api/discovery/:node/search-filters
+    * :node = "top" or repo uuid
+* Assumption: Discovery service will return core metadata for each item
+* Get bitstreams for search results (iterate over results)
+  * /api/core/bitstreams/:node/:bundle/:num
+    * :node = dso uuid
+    * :bundle - defaults to THUMBNAIL
+    * :depth = 1 to pull primary bitstream
+    
+  
