@@ -155,8 +155,86 @@ Alternate options for access
     * :bundle - defaults to THUMBNAIL
     * :depth = 1 to pull primary bitstream
 
+***  
+
 ## Select Facet
 * See Search Entire Repository / Community / Collection
   * This option updates the POST data content
 
+***  
+
+## Download Bitstream 
+
+***  
+
+## Browse to inaccessible community/collection
+
+***
+
+## Browse to inaccessible item
+
+***
+
+## Attempt to Download Bitstream (inaccessible to user)
   
+***
+
+## Create Community
+
+***
+
+## Edit Community
+
+***
+
+## Edit Community Policies
+
+***
+
+## Create Collection
+
+***
+
+## Edit Collection Metadata
+
+***
+
+## Edit Collection Policies
+
+***
+
+## Submit New Item to A Collection
+
+***
+
+## Edit Item in Workflow
+
+***
+
+## Review Item in Workflow
+
+***
+
+## Cancel Item Workflow
+
+***
+
+## Edit Item Metadata
+
+***
+
+## Modify Item Bitstreams
+
+***
+
+## Alter Item Collection Ownership
+
+***
+
+## Alter Item Access Rigths
+
+***
+
+## Alter Bitstream Access Rigths with an Item
+
+***
