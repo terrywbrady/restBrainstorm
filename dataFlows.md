@@ -1,5 +1,20 @@
 # Potential Call Sequences with REST Api
 
+## Object References
+This documentation presumes uuid will be the primary key for api calls.
+
+* /api/_action_/:node
+
+It could be attractive to support both uuids and handles in API calls.
+
+Why? 
+* Handles are more intuitive to new users.  
+* Handles may be more accessible in an ajax add-on.  
+* Handles are preserved in AIP export/import - could allow for test re-use
+
+* /api/_action_/uuid/:uuid
+* /api/_cation_/handle/:handle-prefix/:handle_suffix
+
 ## Main Page Load
 * Get breadcrumb data - returns nothing but a descriptive name at the top level
   * /api/core/hierarchy/ancestors/:node
