@@ -63,27 +63,27 @@ Why?
 * Get core metadata data for community/collection (name, handle)
   * /api/core/dso/:node
     * :node = community/collection uuid
-* Get descriptive metadata data for community
+* Get descriptive metadata data for community/collection
   * /api/core/metadata/:node
     * :node = community/collection uuid
 * Get breadcrumb data
   * /api/core/hierarchy/ancestors/:node
     * :node = community/collection uuid
-* Get descendant subcommunities and collections
+* Get descendant subcommunities and collections (returns nothing for collections)
   * /api/core/hierarchy/descendants/:node/:depth
     * :node = community/collection uuid
     * :depth = 1 to pull direct subcommunity and collection descendants
-* Get Browse Options for community
+* Get Browse Options for community/collection
   * /api/discovery/:node/browse-options
     * :node = community/collection uuid
-* Get Facet Options for community
+* Get Facet Options for community/collection
   * /api/discovery/:node/facets
     * :node = community/collection uuid
 * Get Default Browse Option (likely recent items)
   * /api/browse/:node/:mode
     * :node = community/collection uuid
     * :mode = default - likely recent items
-* Get Available Actions for the Node (create top community)
+* Get Available Actions for the Node (create collection, edit comm/coll, submit item)
   * /api/actions/:node
     * :node = "top" or repo uuid
 
@@ -93,3 +93,29 @@ Why?
 
 ***  
 
+## Browse Item
+* Get core metadata data for item (name, handle)
+  * /api/core/dso/:node
+    * :node = item uuid
+* Get descriptive metadata data for item
+  * /api/core/metadata/:node
+    * :node = item uuid
+* Get breadcrumb data
+  * /api/core/hierarchy/ancestors/:node
+    * :node = item uuid
+* Get bitstreams
+  * /api/core/bitstreams/:node/:bundle/:num
+    * :node = item uuid
+    * :bundle - defaults to ORIGINAL
+    * :depth = 1 to pull primary bitstream, 0 to pull all, n to paginate
+    * ?associated-bundles - defaults to THUMBNAIL - a link to associated bitstreams will be returned with an original bitstream
+* Get Related Items
+  * /api/discovery/:node/related-items
+    * :node = item uuid
+* Get Available Actions for the Node (edit item, usage stats)
+  * /api/actions/:node
+    * :node = "top" or repo uuid
+
+#### How to bundle the information above?
+  * /api/core/hierarchy/browse/:node
+    * :node = item uuid
