@@ -119,3 +119,13 @@ Why?
 #### How to bundle the information above?
   * /api/core/hierarchy/browse/:node
     * :node = item uuid
+
+***  
+
+## Search Entire Repository
+* Search repository for items
+  * /api/discovery/:node/search
+    * :node = "top" or repo uuid
+    * ?query = solr query for "search" repo
+    * ?page = page number
+    * ?size = page size
