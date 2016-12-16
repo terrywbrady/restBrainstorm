@@ -38,7 +38,7 @@ Alternate options for access
     * Get Facet Options for whole repo
       * GET /api/discovery/:node/facets
         * :node = "top" or repo uuid
-    * Get Default Browse Option (likely recent items)
+    * Get Default Browse Option (likely recent items) - retrieves relevant (accessible) items in a logical order
       * GET /api/browse/items/:node/:browse-mode
         * :node = "top" or repo uuid
         * :browse-mode = default - likely recent items
@@ -47,10 +47,6 @@ Alternate options for access
     * Get Available Actions for the Node (create community)
       * GET /api/actions/:node
         * :node = "top" or repo uuid
-
-#### How to bundle the information above?
-  * GET /api/core/hierarchy/browse/:node
-    * :node = "top" or repo uuid
 
 ***  
   
@@ -66,65 +62,65 @@ Alternate options for access
 ***  
 
 ## Browse Community/Collection
-* Get core metadata data for community/collection (name, handle)
-  * GET /api/core/dso/:node
-    * :node = community/collection uuid
-* Get descriptive metadata data for community/collection
-  * GET /api/core/metadata/:node
-    * :node = community/collection uuid
-* Get breadcrumb data
-  * GET /api/core/hierarchy/ancestors/:node
-    * :node = community/collection uuid
-* Get descendant subcommunities and collections (returns nothing for collections)
-  * GET /api/core/hierarchy/descendants/:node/:depth
-    * :node = community/collection uuid
-    * :depth = 1 to pull direct subcommunity and collection descendants
-* Get Browse Options for community/collection
-  * GET /api/discovery/:node/browse-options
-    * :node = community/collection uuid
-* Get Facet Options for community/collection
-  * GET /api/discovery/:node/facets
-    * :node = community/collection uuid
-* Get Default Browse Option (likely recent items)
-  * GET /api/browse/:node/:mode
-    * :node = community/collection uuid
-    * :mode = default - likely recent items
-* Get Available Actions for the Node (create collection, edit comm/coll, submit item)
-  * GET /api/actions/:node
-    * :node = "top" or repo uuid
-
-#### How to bundle the information above?
-  * GET /api/core/hierarchy/browse/:node
-    * :node = community/collection uuid
+* Browse to the repository landing page, retrieve relevant resources
+  * GET /api/browse/page/:node
+      * :node = community/collection uuid
+  * This call will load all of the relevant resources which could be called individually
+    * Get core metadata data for community/collection (name, handle)
+      * GET /api/core/dso/:node
+        * :node = community/collection uuid
+    * Get descriptive metadata data for community/collection
+      * GET /api/core/metadata/:node
+        * :node = community/collection uuid
+    * Get breadcrumb data
+      * GET /api/core/hierarchy/ancestors/:node
+        * :node = community/collection uuid
+    * Get descendant subcommunities and collections (returns nothing for collections)
+      * GET /api/core/hierarchy/descendants/:node/:depth
+        * :node = community/collection uuid
+        * :depth = 1 to pull direct subcommunity and collection descendants
+    * Get Browse Options for community/collection
+      * GET /api/discovery/:node/browse-options
+        * :node = community/collection uuid
+    * Get Facet Options for community/collection
+      * GET /api/discovery/:node/facets
+        * :node = community/collection uuid
+    * Get Default Browse Option (likely recent items) - retrieves relevant items in a logical order
+      * GET /api/browse/items/:node/:mode
+        * :node = community/collection uuid
+        * :mode = default - likely recent items
+    * Get Available Actions for the Node (create collection, edit comm/coll, submit item)
+      * GET /api/actions/:node
+        * :node = "top" or repo uuid
 
 ***  
 
 ## Browse Item
-* Get core metadata data for item (name, handle)
-  * GET /api/core/dso/:node
-    * :node = item uuid
-* Get descriptive metadata data for item
-  * GET /api/core/metadata/:node
-    * :node = item uuid
-* Get breadcrumb data
-  * GET /api/core/hierarchy/ancestors/:node
-    * :node = item uuid
-* Get bitstreams
-  * GET /api/core/bitstreams/:node/:bundle/:num
-    * :node = item uuid
-    * :bundle - defaults to ORIGINAL
-    * :depth = 1 to pull primary bitstream, 0 to pull all, n to paginate
-    * ?associated-bundles - defaults to THUMBNAIL - a link to associated bitstreams will be returned with an original bitstream
-* Get Related Items
-  * GET /api/discovery/:node/related-items
-    * :node = item uuid
-* Get Available Actions for the Node (edit item, usage stats)
-  * GET /api/actions/:node
-    * :node = "top" or repo uuid
-
-#### How to bundle the information above?
-  * GET /api/core/hierarchy/browse/:node
-    * :node = item uuid
+* Browse to the repository landing page, retrieve relevant resources
+  * GET /api/browse/page/:node
+      * :node = item uuid
+  * This call will load all of the relevant resources which could be called individually
+    * Get core metadata data for item (name, handle)
+      * GET /api/core/dso/:node
+        * :node = item uuid
+    * Get descriptive metadata data for item
+      * GET /api/core/metadata/:node
+        * :node = item uuid
+    * Get breadcrumb data
+      * GET /api/core/hierarchy/ancestors/:node
+        * :node = item uuid
+    * Get bitstreams
+      * GET /api/core/bitstreams/:node/:bundle/:num
+        * :node = item uuid
+        * :bundle - defaults to ORIGINAL
+        * :depth = 1 to pull primary bitstream, 0 to pull all, n to paginate
+        * ?associated-bundles - defaults to THUMBNAIL - a link to associated bitstreams will be returned with an original bitstream
+    * Get Related Items
+      * GET /api/discovery/:node/related-items
+        * :node = item uuid
+    * Get Available Actions for the Node (edit item, usage stats)
+      * GET /api/actions/:node
+        * :node = "top" or repo uuid
 
 ***  
 
