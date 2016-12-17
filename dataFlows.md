@@ -35,7 +35,7 @@ Alternate options for access
       * GET /api/core/hierarchy/descendants/:node/:depth
         * :node = "top" or repo uuid
         * :depth = 1 to pull top level descendants
-        * returns Array of [Community](objectSchema.md#community)
+        * returns [Hierarchy](objectSchema.md#hierarchy) containing only top level communities
     * Get Browse Options for whole repo
       * GET /api/discovery/:node/browse-options
         * :node = "top" or repo uuid
