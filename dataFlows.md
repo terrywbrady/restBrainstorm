@@ -20,33 +20,41 @@ Alternate options for access
 * Browse to the repository landing page, retrieve relevant resources
   * GET /api/browse/page/:node
       * :node = "top" or repo uuid  
+      * returns [Browse](objectSchema.md#browse)
   * This call will load all of the relevant resources which could be called individually
     * Get breadcrumb data - returns nothing but a descriptive name at the top level
       * GET /api/core/hierarchy/ancestors/:node
         * :node = "top" or repo uuid  
+        * returns [Hierarchy](objectSchema.md#hierarchy)
     * Get Welcome Message
       * GET /api/core/config/:prop-group
         * :prop-group = ui
         * :prop-name = welcome
+        * returns [Property](objectSchema.md#property)
     * Get List of Top Communities
       * GET /api/core/hierarchy/descendants/:node/:depth
         * :node = "top" or repo uuid
         * :depth = 1 to pull top level descendants
+        * returns Array of [Community](objectSchema.md#community)
     * Get Browse Options for whole repo
       * GET /api/discovery/:node/browse-options
         * :node = "top" or repo uuid
+        * returns [Option](objectSchema.md#option)
     * Get Facet Options for whole repo
       * GET /api/discovery/:node/facets
         * :node = "top" or repo uuid
+        * returns Array of [Facet](objectSchema.md#facet)
     * Get Default Browse Option (likely recent items) - retrieves relevant (accessible) items in a logical order
       * GET /api/browse/items/:node/:browse-mode
         * :node = "top" or repo uuid
         * :browse-mode = default - likely recent items
         * ?page - defaults to 0
         * ?size - defaults to default page size for node
+        * returns array of [Item](objectSchema.md#item)
     * Get Available Actions for the Node (create community)
       * GET /api/actions/:node
         * :node = "top" or repo uuid
+        * returns Array of [Action](objectSchema.md#action)
 
 ***  
   
@@ -203,6 +211,14 @@ Alternate options for access
 
 ***
 
+## Edit Collection Content Source
+
+***
+
+## Curate Collection
+
+***
+
 ## Submit New Item to A Collection
 
 ***
@@ -238,3 +254,22 @@ Alternate options for access
 ## Alter Bitstream Access Rigths with an Item
 
 ***
+
+## Administer
+
+* Administer people
+* Administer groups
+* Administer policies
+* Administer schema registry
+* Administer metadata field registry
+* Administer format registry
+* Administer content
+  * Initiate bulk metadata edit
+  * Initiate bulk ingest
+  * Find special items
+    * Withdrawn items
+    * Private items
+    * (Other special filters to plug in)
+    * Metadata query?
+* Control panel View
+* Configurable Workflows checks like Sherpa
