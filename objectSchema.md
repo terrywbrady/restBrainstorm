@@ -1,7 +1,6 @@
 # Core Object Types
-* Core
-  * Repository
-  * Community
+##  Repository
+## Community
   * Collection
   * Item
   * Bundle
