@@ -7,24 +7,29 @@
 * accessible: enum of accessibility summary (for current user)
 
 ## Repository extends DSO
+
 ## Community extends DSO
 * breadcrumb: Array of DSO
 * metadata: Array of Metadata
 * hierarchy: Hierarchy
 * policies: Array of Policy
+
 ## Collection extends DSO
 * breadcrumb: Array of DSO
 * metadata: Array of Metadata
 * policies: Array of Policy
 * items: Array of Items
 * contentSource
+
 ## Item extends DSO
 * breadcrumb: Array of DSO
 * metadata: Array of Metadata
 * policies: Array of Policy
 * bitstreams: Array of Bitstream
+
 ## Bundle 
 * Can we abstract this out so REST client does not directly manipulate this?
+
 ## Bitstream 
 * parentItem: Item
 * bundleName
@@ -32,6 +37,7 @@
 * associatedItems: Array of Object
   .bundleName
   .bitstream
+
 ## Metadata
 * schema
 * element
@@ -39,6 +45,7 @@
 * value
 * sequence
 * authority
+
 ## Policy - DSpace access policy info
 
 
