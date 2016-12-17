@@ -25,7 +25,7 @@ Alternate options for access
     * Get breadcrumb data - returns nothing but a descriptive name at the top level
       * GET /api/core/hierarchy/ancestors/:node
         * :node = "top" or repo uuid  
-        * returns Array of DSO(objectSchema.md#dso)
+        * returns Array of [DSO](objectSchema.md#dso)
     * Get Welcome Message
       * GET /api/core/config/:prop-group
         * :prop-group = ui
