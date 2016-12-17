@@ -39,7 +39,7 @@ Alternate options for access
     * Get Browse Options for whole repo
       * GET /api/discovery/:node/browse-options
         * :node = "top" or repo uuid
-        * returns [Option](objectSchema.md#option)
+        * returns Array of [Option](objectSchema.md#option)
     * Get Facet Options for whole repo
       * GET /api/discovery/:node/facets
         * :node = "top" or repo uuid
