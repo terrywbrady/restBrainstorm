@@ -1,67 +1,82 @@
 # Core Object Types
-## DSO
+
+## MinimalDSO
 * uuid: uuid
 * name: String
+  * name will be pre-loaded from metadata 
 * type: enum of DSO
 * handle: String
+* url() : String 
 * accessible: enum of accessibility summary (for current user)
+* toDSO(): DSO
 
-## Repository extends DSO
+## DSO extends MinimalDSO
+* policies(): Array of Policy
+* metadata(): Array of Metadata
 
-## Community extends DSO
-* breadcrumb: Array of DSO
-* metadata: Array of Metadata
-* hierarchy: Hierarchy
-* policies: Array of Policy
+## HierarchicalDSO extends DSO
+* breadcrumb: Array of MinimalDSO
+* descendants: Hierarchy
 
-## Collection extends DSO
-* breadcrumb: Array of DSO
-* metadata: Array of Metadata
-* policies: Array of Policy
+## Repository extends HierarchicalDSO
+
+## Community extends HierarchicalDSO
+
+## Collection extends HierarchicalDSO
 * items: Array of Items
-* contentSource
+* contentSource: enum
 
 ## Item extends DSO
-* breadcrumb: Array of DSO
-* metadata: Array of Metadata
-* policies: Array of Policy
+* breadcrumb: Array of MinimalDSO
 * bitstreams: Array of Bitstream
+* submitter: EPerson
+* discoverable: boolean
+* withdrawn: boolean
+* in_archive: boolean
 
 ## Bundle 
 * Can we abstract this out so REST client does not directly manipulate this?
 
-## Bitstream 
+## Bitstream extends DSO
 * parentItem: Item
-* bundleName
-* sequence
+* bundleName: String
+* sequence: Number
+* formatId: Number or enum
+* checksum: String
+* checksumAlgorithm: enum
+* deleted: boolean
+* size: Number
+* internal id - should this be exposed externally?
 * associatedItems: Array of Object
   .bundleName
   .bitstream
 
 ## Metadata
-* schema
-* element
-* qualifier
-* value
-* sequence
-* authority
+* dspaceObject: UUID
+* schema: String
+* element: String
+* qualifier: String
+* key: String (schema+element+qualifier)
+* text_value: String
+* lang: String or enum
+* sequence: Number
+* authority: String
+* confidence: Number
 
 ## Policy - DSpace access policy info
-
+* dspaceObject 
 
 # Brainstorm Object Types
 
-# Browse
-* breadcrumb: array of DSO
+# NodeContext
+* breadcrumb: array of MinimalDSO
 * descendants: Hierarchy
-* metadata: Array of Metadata
 * browseOptions: Array of Option
 * browseFacets: Array of Facet
-* browseItems: Array of Item
 * actions: Array of Actions
 
 # Hierarchy
-* node: DSO (repo, community, collection)  
+* node: MinimalDSO (repo, community, collection)  
 * children: Array of Hierarchy 
 
 # Property
