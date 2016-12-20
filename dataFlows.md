@@ -358,6 +358,36 @@ Should policies be edited with the collection or in a separate transaction?
 
 ***
 
+## Alter Item Collection Ownership
+* POST /api/core/item/:item/ownership
+  * :item: item uuid
+  * Payload: Array of [MinimalDSO](objectSchema.md#minimaldso)
+  * Returns: [Item](objectSchema.md#item)
+
+***
+
+## Add Item Policy
+* POST /api/core/item/:item/policy
+  * :item: item uuid
+  * Payload: [Policy](objectSchema.md#policy)
+  * Returns: [Policy](objectSchema.md#policy)
+
+***
+
+## Delete Item Policy
+* DELETE /api/core/policy/:policy_id
+  * :policy_id: policy uuid
+
+***
+
+## Edit Item Policy
+* POST /api/core/policy/:policy_id
+  * :policy_id: policy uuid
+  * Payload: [Policy](objectSchema.md#policy)
+  * Returns: [Policy](objectSchema.md#policy)
+
+***
+
 ## Add Bitstream to Item
 * POST /api/core/item/:item/Bitstream
   * :item: item uuid
@@ -367,33 +397,96 @@ Should policies be edited with the collection or in a separate transaction?
 
 ***
 
-## Alter Item Collection Ownership
+## Edit Bitstream Metadata
+* PUT /api/core/bitstream/:bitstream
+  * :bitstream: bitstream uuid
+  * Payload: [Bitstream](objectSchema.md#bitstream)
+  * Returns: [Bitstream](objectSchema.md#bitstream)
 
 ***
 
-## Alter Item Access Rigths
+## Edit Bitstream Binary
+* PUT /api/core/bitstream/:bitstream
+  * :bitstream: bitstream uuid
+  * Payload: Binary
+  * Returns: [Bitstream](objectSchema.md#bitstream)
 
 ***
 
-## Alter Bitstream Access Rigths with an Item
+## Add Bitstream Policy
+Are Bundle Policies Needed?
+* POST /api/core/bitstream/:bitstream/policy
+  * :bitstream: bitstream uuid
+  * Payload: [Policy](objectSchema.md#policy)
+  * Returns: [Policy](objectSchema.md#policy)
+
+***
+
+## Delete Bitstream Policy
+* DELETE /api/core/policy/:policy_id
+  * :policy_id: policy uuid
+
+***
+
+## Edit Bitstream Policy
+* POST /api/core/policy/:policy_id
+  * :policy_id: policy uuid
+  * Payload: [Policy](objectSchema.md#policy)
+  * Returns: [Policy](objectSchema.md#policy)
 
 ***
 
 ## Administer
-
 * Administer people
+  * GET    /api/core/eperson/:uuid
+  * GET    /api/core/eperson/:email
+  * POST   /api/core/eperson
+  * PUT    /api/core/eperson/:uuid
+  * DELETE /api/core/eperson/:uuid
 * Administer groups
-* Administer policies
+  * GET    /api/core/epersongroup/:uuid
+  * POST   /api/core/eperson
+  * PUT    /api/core/epersongroup/:uuid
+  * DELETE /api/core/epersongroup/:uuid
 * Administer schema registry
+  * GET    /api/core/registry/schema/:uuid
+  * GET    /api/core/registry/schema/:prefix
+  * POST   /api/core/registry/schema
+  * PUT    /api/core/registry/schema/:uuid
+  * DELETE /api/core/registry/schema/:uuid
 * Administer metadata field registry
+  * GET    /api/core/registry/schema/:prefix/metadata-field/:element+qualifier
+  * GET    /api/core/registry/metadata-field/:uuid
+  * POST   /api/core/registry/schema/:uuid/metadata-field
+  * POST   /api/core/registry/schema/:prefix/metadata-field
+  * PUT    /api/core/registry/metadata-field/:uuid
+  * DELETE /api/core/registry/metadata-field/:uuid
 * Administer format registry
+  * GET    /api/core/registry/format/:uuid
+  * GET    /api/core/registry/format/:mime
+  * POST   /api/core/registry/format
+  * PUT    /api/core/registry/format/:uuid
+  * DELETE /api/core/registry/format/:uuid
 * Administer content
   * Initiate bulk metadata edit
+    * POST /api/app/bulk-metadata
+      * ?preview: boolean
+      * Payload: CSV
   * Initiate bulk ingest
+    * POST /api/app/bulk-ingest/:coll_uuid
+      * Payload: Zip file of ingest folders
   * Find special items
     * Withdrawn items
+      * POST /api/core/item/filter
+        * Payload: JSON structure defining types of items to request
     * Private items
+      * POST /api/core/item/filter
+        * Payload: JSON structure defining types of items to request
     * (Other special filters to plug in)
+      * POST /api/core/item/filter
+        * Payload: JSON structure defining types of items to request
     * Metadata query?
-* Control panel View
+      * POST /api/core/item/filter
+        * Payload: JSON structure defining types of items to request
 * Configurable Workflows checks like Sherpa
+  * POST /api/plugin/sherpa

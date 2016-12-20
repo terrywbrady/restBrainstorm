@@ -57,6 +57,9 @@
 * associatedItems: Array of Object
   .bundleName
   .bitstream
+
+## BitstreamBinary 
+
   
 ## EPerson
 * extends [DSO](#dso)
