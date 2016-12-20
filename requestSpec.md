@@ -4,33 +4,168 @@
 ## Global Parameters
 * lang - Requests will default to repo's primary lang, if this is provided language specific replacements will be injected
 
-Retrieve system properties
-  * GET  /api/core/config/:prop-group
+## Config Properties
+  * GET /api/core/config/:prop-group/:prop-name
+    * :prop-group = 
+    * :prop-name = 
+    * returns [Property](objectSchema.md#property)
 
-Retrieve DSpace core objects
-  * GET  /api/core/hierarchy/ancestors/:node
-  * GET  /api/core/hierarchy/descendants/:node/:depth
-  * GET  /api/core/hierarchy/browse/:node
-  * GET  /api/core/dso/:node
-  * GET  /api/core/metadata/:node
-  * GET  /api/core/bitstreams/:node/:bundle/:num
+## Core Objects
+* Get core metadata data for community/collection (name, handle)
+  * GET /api/core/dso/:node
+    * :node = community/collection uuid
+    * returns [MinimalDSO](objectSchema.md#minimaldso)
+* Get descriptive metadata data for community/collection
+  * GET /api/core/metadata/:node
+    * :node = community/collection uuid
+    * returns Array of [Metadata](objectSchema.md#metadata)
+* Handle
+  * GET /api/core/handle/:prefix/:suffix
+* Repository
+  * GET /api/core/repository
+  * POST /api/core/repository/community
+* Community
+  * GET    /api/core/community/:node
+  * POST   /api/core/community/:node/community
+  * POST   /api/core/community/:node/collection
+  * POST   /api/core/community/:node/policy
+  * PUT    /api/core/community/:node
+  * DELETE /api/core/community/:node
+* Collection
+  * GET    /api/core/collection/:node
+  * POST   /api/core/collection/:node/submit
+  * POST   /api/core/collection/:node/policy
+  * POST   /api/core/collection/:node/curate
+  * POST   /api/core/collection/:node/queue-curate
+  * PUT    /api/core/collection/:node
+  * DELETE /api/core/collection/:node
+* Item
+  * GET    /api/core/item/:node
+  * POST   /api/core/item/:node/bitstream
+  * POST   /api/core/item/:node/policy
+  * POST   /api/core/item/:node/workflow
+  * POST   /api/core/item/:node/ownership
+  * PUT    /api/core/item/:node
+  * DELETE /api/core/item/:node
+* Bitstreams
+  * GET /api/core/item/:item/bitstream/:bundle/:num
+    * :item = item uuid
+    * :bundle - defaults to ORIGINAL
+    * :num = 1 to pull primary bitstream, 0 to pull all, n to paginate
+    * ?associated-bundles - defaults to THUMBNAIL - a link to associated bitstreams will be returned with an original bitstream
+    * returns array of [Bitstream](objectSchema.md#bitstream)
+  * GET /api/bitstream/download/:bitstream
+    * :bitstream: uuid of bitstream
+    * returns BINARY data 
 
-Search Repository and Use Search Index for Related Items
-  * GET  /api/discovery/:node/browse-options
-  * GET  /api/discovery/:node/facets
-  * GET  /api/discovery/:node/related-items
+## Authorization Policies
+  * GET    /api/authorize/policy/:uuid
+  * POST   /api/authorize/policy/:uuid
+  * PUT    /api/authorize/policy/:uuid
+  * DELETE /api/authorize/policy/:uuid
+
+## Node Context - Browse
+* Get Context Options for Current Node
+  * GET /api/node-context/:node 
+    * :node = "top" or repo uuid
+    * ?depth: Number.  Pull n levels of descendants or 0 for all.  Default: 0 
+    * returns [NodeContext](objectSchema.md#nodecontext) 
+  * Get Browse Options for whole repo
+    * GET /api/discovery/:node/browse-options
+      * :node = "top" or repo uuid
+      * returns Array of [Option](objectSchema.md#option)
+  * Get Available Actions for the Node (create community)
+    * GET /api/actions/:node
+      * :node = "top" or repo uuid
+      * returns Array of [Action](objectSchema.md#action)
+
+## Hierarchy
+  * Get breadcrumb data - returns nothing but a descriptive name at the top level
+    * GET /api/core/hierarchy/ancestors/:node
+      * :node = Community/Collection uuid  
+      * returns Array of [MinimalDSO](objectSchema.md#minimaldso)
+  * Get List of Top Communities
+    * GET /api/core/hierarchy/descendants/:node/:depth
+      * :node = "top" or repo uuid
+      * ?depth: Number.  Pull n levels of descendants or 0 for all.  Default: 0 
+      * returns [Hierarchy](objectSchema.md#hierarchy) containing only top level communities
+
+## Discovery
+  * Get Facet Options for whole repo
+    * GET /api/discovery/:node/facets
+      * :node = "top" or repo uuid
+      * returns Array of [Facet](objectSchema.md#facet)
+  * GET /api/discovery/browse/:node/:browse-mode
+    * :node = "top" or repo uuid
+    * :browse-mode = default - likely recent items
+    * ?page - defaults to 0
+    * ?size - defaults to default page size for node
+    * returns array of [Item](objectSchema.md#item)
+* Get Related Items
+  * GET /api/discovery/:node/related-items
+    * :node = item uuid
+    * returns array of [Item](objectSchema.md#item)
+* Search repository for items
   * POST /api/discovery/:node/search
-  * GET  /api/discovery/:node/search/facets
-  * GET  /api/discovery/:node/sort-modes
-  * GET  /api/discovery/:node/search-filters
-  
-Retrieve all relevant data associated with a browse action
-  * GET  /api/browse/:node/:browse-mode
-  
-Retrieve action options for an object
-  * GET  /api/actions/:node
+    * :node = "top" or repo uuid or comm/coll uuid
+    * ?page = page number
+    * ?size = page size
+    * ?sort-mode = choose from available sort options, the default sort will be used if not specified
+    * Payload: solr query for "search" repo, may include advanced search text and facet values
+    * returns [NodeContext](objectSchema.md#nodecontext) with search results and facets tailored to hits
 
-# Notes pulled from DSpace 6 api
+## Administer People/Groups
+* Administer people
+  * GET    /api/eperson/eperson/:uuid
+  * GET    /api/eperson/eperson/:email
+  * POST   /api/eperson/eperson
+  * PUT    /api/eperson/eperson/:uuid
+  * DELETE /api/eperson/eperson/:uuid
+* Administer groups
+  * GET    /api/eperson/epersongroup/:uuid
+  * POST   /api/eperson/epersongroup
+  * PUT    /api/eperson/epersongroup/:uuid
+  * DELETE /api/eperson/epersongroup/:uuid
+  
+## Registries
+* Administer schema registry
+  * GET    /api/registry/schema/:uuid
+  * GET    /api/registry/schema/:prefix
+  * POST   /api/registry/schema
+  * PUT    /api/registry/schema/:uuid
+  * DELETE /api/registry/schema/:uuid
+* Administer metadata field registry
+  * GET    /api/registry/schema/:prefix/metadata-field/:element+qualifier
+  * GET    /api/registry/metadata-field/:uuid
+  * POST   /api/registry/schema/:uuid/metadata-field
+  * POST   /api/registry/schema/:prefix/metadata-field
+  * PUT    /api/registry/metadata-field/:uuid
+  * DELETE /api/registry/metadata-field/:uuid
+* Administer format registry
+  * GET    /api/registry/format/:uuid
+  * GET    /api/registry/format/:mime
+  * POST   /api/registry/format
+  * PUT    /api/registry/format/:uuid
+  * DELETE /api/registry/format/:uuid
+  
+## Bulk Modification
+* Initiate bulk metadata edit
+  * POST /api/app/bulk-metadata
+    * ?preview: boolean
+    * Payload: CSV
+* Initiate bulk ingest
+  * POST /api/app/bulk-ingest/:coll_uuid
+    * Payload: Zip file of ingest folders
+
+## Filter Items (by admin properties as opposed to end user search)
+* Find Withdrawn items
+  * POST /api/filter/item
+* Find Private items
+  * POST /api/filter/item
+* Metadata query?
+  * POST /api/filter/item
+* Configurable Workflows checks like Sherpa
+  * POST /api/plugin/sherpa
 
 ## General (pulled from prior api)
 * GET  / - Return api overview
@@ -39,50 +174,8 @@ Retrieve action options for an object
 * POST /api/login - Method for logging into the DSpace RESTful API.
 * POST /api/logout - Method for logging out of the DSpace RESTful API. 
 
-## DSO (pulled from prior api)
-* Community
-  * GET  /api/core/communities
-  * POST - Create a top level community
-  * POST - Create a subcommunity
-  * PUT  - Update a community
-  * DEL  - Delete the specified community.
-  * Question: do we delete hierarchical links or is that only done by deleting a child object?
-  * POST - Change ancestor for a community
-* Collections
-  * GET  /api/core/collections
-  * POST - Create a collection within a community
-  * PUT  - Update a collection
-  * DEL  - Delete a collection
-  * POST - Start a submission within a collection
-* Items (
-  * GET  /api/core/items
-  * POST - Find items by the specified metadata value.
-    * What types of changes need an independent endpoint in order to allow for clean authorization?
-  * PUT  - update an item
-  * DEL  - Delete the specified item.
-* Bitstream
-  * GET  /api/core/bitstream
-  * PUT
-  * DEL
-  * POST add a new bitstream to a bundle
-  * Do bundles have separate endpoints, or are bundles created and removed as needed?
-* Schema Registry
-  * GET /registries/schema - Return the list of metadata schemas in the registry
-  * GET /registries/schema/{schema_prefix} - Returns the specified metadata schema
-  * GET /registries/schema/{schema_prefix}/metadata-fields/{element} - Returns the metadata field within a schema with an unqualified element name
-  * GET /registries/schema/{schema_prefix}/metadata-fields/{element}/{qualifier} - Returns the metadata field within a schema with a qualified element name
-  * POST /registries/schema/ - Add a schema to the schema registry
-  * POST /registries/schema/{schema_prefix}/metadata-fields - Add a metadata field to the specified schema
-  * GET /registries/metadata-fields/{field_id} - Return the specified metadata field
-  * PUT /registries/metadata-fields/{field_id} - Update the specified metadata field
-  * DELETE /registries/metadata-fields/{field_id} - Delete the specified metadata field from the metadata field registry
-  * DELETE /registries/schema/{schema_id} - Delete the specified schema from the schema registry
-* Metadata
-  /api/core/metadata - construct a metadata query
-* Filters (DSpace 6)
-  This concept could be useful to incorporate into the api once we know the layout of the new api calls
-
 # Review of DSpace package list to identify candidate endpoints
+Which of these packages will require the creation of an endpoint?
 
 DSpace packages without REST endpoints
 * Checksum checker - assume this is a background process that will not run via rest

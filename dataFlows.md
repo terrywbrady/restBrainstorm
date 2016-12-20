@@ -20,7 +20,7 @@ Alternate options for access
 * Get Context Options for Current Node
   * GET /api/node-context/:node 
     * :node = "top" or repo uuid
-    * :depth 
+    * ?depth 
       * 1 to pull top level descendants
       * 0 to pull all descendants
     * returns [NodeContext](objectSchema.md#nodecontext) 
@@ -30,9 +30,9 @@ Alternate options for access
         * :node = "top" or repo uuid  
         * returns Array of [MinimalDSO](objectSchema.md#minimaldso)
     * Get List of Top Communities
-      * GET /api/core/hierarchy/descendants/:node/:depth
+      * GET /api/core/hierarchy/descendants/:node
         * :node = "top" or repo uuid
-        * :depth 
+        * ?depth 
           * 1 to pull top level descendants
           * 0 to pull all descendants
         * returns [Hierarchy](objectSchema.md#hierarchy) containing only top level communities
@@ -57,12 +57,12 @@ Alternate options for access
     * :depth: 1 to pull only top level communities
     * returns [NodeContext](objectSchema.md#nodecontext)
 * Get Welcome Message
-  * GET /api/core/config/:prop-group
+  * GET /api/core/config/:prop-group/:prop-name
     * :prop-group = ui
     * :prop-name = welcome
     * returns [Property](objectSchema.md#property)
 * Get Items per Default Browse Option (likely recent items) - retrieves relevant (accessible) items in a logical order
-  * GET /api/browse/items/:node/:browse-mode
+  * GET /api/discovery/browse/:node/:browse-mode
     * :node = "top" or repo uuid
     * :browse-mode = default - likely recent items
     * ?page - defaults to 0
@@ -97,7 +97,7 @@ Alternate options for access
     * :depth: 0 to pull all community descendants
     * returns [NodeContext](objectSchema.md#nodecontext)
 * Get Items per Default Browse Option (likely recent items) - retrieves relevant (accessible) items in a logical order
-  * GET /api/browse/items/:node/:browse-mode
+  * GET /api/discovery/browse/:node/:browse-mode
     * :node = "top" or repo uuid
     * :browse-mode = default - likely recent items
     * ?page - defaults to 0
@@ -121,10 +121,10 @@ Alternate options for access
     * :node = item uuid
     * returns Array of [MinimalDSO](objectSchema.md#minimaldso)
 * Get bitstreams
-  * GET /api/core/bitstreams/:node/:bundle/:num
-    * :node = item uuid
+  * GET /api/core/item/:item/bitstream/:bundle/:num
+    * :item = item uuid
     * :bundle - defaults to ORIGINAL
-    * :depth = 1 to pull primary bitstream, 0 to pull all, n to paginate
+    * :num = 1 to pull primary bitstream, 0 to pull all, n to paginate
     * ?associated-bundles - defaults to THUMBNAIL - a link to associated bitstreams will be returned with an original bitstream
     * returns array of [Bitstream](objectSchema.md#bitstream)
 * Get Related Items
@@ -202,7 +202,7 @@ Alternate options for access
 ***
 
 ## Create Community
-* POST /api/core/community/:node/subcommunity
+* POST /api/core/community/:node/community
   * :node: parent community uuid
     * or "top" or repo uuid for top level communities
   * Payload: Array of [Metadata](objectSchema.md#metadata)
@@ -236,14 +236,14 @@ Alternate options for access
 ***
 
 ## Delete Community Policy
-* DELETE /api/core/policy/:policy_id
+* DELETE /api/authorize/policy/:policy_id
   * :policy_id: policy uuid
 
 ***
 
 ## Edit Community Policy
 Should policies be edited with the community or in a separate transaction?
-* POST /api/core/policy/:policy_id
+* POST /api/authorize/policy/:policy_id
   * :policy_id: policy uuid
   * Payload: [Policy](objectSchema.md#policy)
   * Returns: [Policy](objectSchema.md#policy)
@@ -278,14 +278,14 @@ Should policies be edited with the community or in a separate transaction?
 ***
 
 ## Delete Collection Policy
-* DELETE /api/core/policy/:policy_id
+* DELETE /api/authorize/policy/:policy_id
   * :policy_id: policy uuid
 
 ***
 
 ## Edit Collection Policy
 Should policies be edited with the collection or in a separate transaction?
-* POST /api/core/policy/:policy_id
+* POST /api/authorize/policy/:policy_id
   * :policy_id: policy uuid
   * Payload: [Policy](objectSchema.md#policy)
   * Returns: [Policy](objectSchema.md#policy)
@@ -375,13 +375,13 @@ Should policies be edited with the collection or in a separate transaction?
 ***
 
 ## Delete Item Policy
-* DELETE /api/core/policy/:policy_id
+* DELETE /api/authorize/policy/:policy_id
   * :policy_id: policy uuid
 
 ***
 
 ## Edit Item Policy
-* POST /api/core/policy/:policy_id
+* POST /api/authorize/policy/:policy_id
   * :policy_id: policy uuid
   * Payload: [Policy](objectSchema.md#policy)
   * Returns: [Policy](objectSchema.md#policy)
@@ -423,70 +423,14 @@ Are Bundle Policies Needed?
 ***
 
 ## Delete Bitstream Policy
-* DELETE /api/core/policy/:policy_id
+* DELETE /api/authorize/policy/:policy_id
   * :policy_id: policy uuid
 
 ***
 
 ## Edit Bitstream Policy
-* POST /api/core/policy/:policy_id
+* POST /api/authorize/policy/:policy_id
   * :policy_id: policy uuid
   * Payload: [Policy](objectSchema.md#policy)
   * Returns: [Policy](objectSchema.md#policy)
 
-***
-
-## Administer
-* Administer people
-  * GET    /api/core/eperson/:uuid
-  * GET    /api/core/eperson/:email
-  * POST   /api/core/eperson
-  * PUT    /api/core/eperson/:uuid
-  * DELETE /api/core/eperson/:uuid
-* Administer groups
-  * GET    /api/core/epersongroup/:uuid
-  * POST   /api/core/eperson
-  * PUT    /api/core/epersongroup/:uuid
-  * DELETE /api/core/epersongroup/:uuid
-* Administer schema registry
-  * GET    /api/core/registry/schema/:uuid
-  * GET    /api/core/registry/schema/:prefix
-  * POST   /api/core/registry/schema
-  * PUT    /api/core/registry/schema/:uuid
-  * DELETE /api/core/registry/schema/:uuid
-* Administer metadata field registry
-  * GET    /api/core/registry/schema/:prefix/metadata-field/:element+qualifier
-  * GET    /api/core/registry/metadata-field/:uuid
-  * POST   /api/core/registry/schema/:uuid/metadata-field
-  * POST   /api/core/registry/schema/:prefix/metadata-field
-  * PUT    /api/core/registry/metadata-field/:uuid
-  * DELETE /api/core/registry/metadata-field/:uuid
-* Administer format registry
-  * GET    /api/core/registry/format/:uuid
-  * GET    /api/core/registry/format/:mime
-  * POST   /api/core/registry/format
-  * PUT    /api/core/registry/format/:uuid
-  * DELETE /api/core/registry/format/:uuid
-* Administer content
-  * Initiate bulk metadata edit
-    * POST /api/app/bulk-metadata
-      * ?preview: boolean
-      * Payload: CSV
-  * Initiate bulk ingest
-    * POST /api/app/bulk-ingest/:coll_uuid
-      * Payload: Zip file of ingest folders
-  * Find special items
-    * Withdrawn items
-      * POST /api/core/item/filter
-        * Payload: JSON structure defining types of items to request
-    * Private items
-      * POST /api/core/item/filter
-        * Payload: JSON structure defining types of items to request
-    * (Other special filters to plug in)
-      * POST /api/core/item/filter
-        * Payload: JSON structure defining types of items to request
-    * Metadata query?
-      * POST /api/core/item/filter
-        * Payload: JSON structure defining types of items to request
-* Configurable Workflows checks like Sherpa
-  * POST /api/plugin/sherpa
