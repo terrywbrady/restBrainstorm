@@ -145,7 +145,7 @@ Alternate options for access
     * ?page = page number
     * ?size = page size
     * ?sort-mode = choose from available sort options, the default sort will be used if not specified
-    * POST Content - solr query for "search" repo, may include advanced search text and facet values
+    * Payload: solr query for "search" repo, may include advanced search text and facet values
     * returns [NodeContext](objectSchema.md#nodecontext) with search results and facets tailored to hits
   
 ***  
@@ -202,14 +202,51 @@ Alternate options for access
 ***
 
 ## Create Community
-
+* POST /api/core/community/:node/subcommunity
+  * :node: parent community uuid
+    * or "top" or repo uuid for top level communities
+  * Payload: Array of [Metadata](objectSchema.md#metadata)
+    * Should a Community object be passed instead?
+  * Returns [Community](objectSchema.md#community)
+  
 ***
 
 ## Edit Community
+* PUT /api/core/community/:node
+  * :node: community uuid
+  * Payload: Array of [Metadata](objectSchema.md#metadata)
+    * Should a Community object be passed instead?
+  * Returns [Community](objectSchema.md#community)
+
+***
+
+## Delete Community
+* DELETE /api/core/community/:node
+  * :node: community uuid
+  * Returns HTTP Status
+
+***
+
+## Add Community Policies
+* POST /api/core/community/:node/policy
+  * :node: community uuid
+  * Payload: [Policy](objectSchema.md#policy)
+  * Returns: [Policy](objectSchema.md#policy)
+
+***
+
+## Delete Community Policies
+* DELETE /api/core/policy/:policy_id
+  * :policy_id: policy uuid
 
 ***
 
 ## Edit Community Policies
+Should policies be edited with the community or in a separate transaction?
+* POST /api/core/policy/:policy_id
+  * :policy_id: policy uuid
+  * Payload: [Policy](objectSchema.md#policy)
+  * Returns: [Policy](objectSchema.md#policy)
 
 ***
 
