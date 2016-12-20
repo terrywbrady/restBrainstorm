@@ -75,11 +75,11 @@
 
 ## SearchResult
 * dso: MinimalDSO
-* metadata: Array of SolrMetadata 
-* snippet: Array of SolrMetadata
+* metadata: Array of [SolrMetadata](#solrmetadata) 
+* snippet: Array of [SolrMetadata](#solrmetadata)
 
 ## NodeContext
-* breadcrumb: array of MinimalDSO
+* breadcrumb: array of [MinimalDSO](#minimaldso)
 * descendants: Hierarchy
 * browseOptions: Array of Option
 * browseFacets: Array of Facet
