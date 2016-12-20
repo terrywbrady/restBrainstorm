@@ -235,13 +235,13 @@ Alternate options for access
 
 ***
 
-## Delete Community Policies
+## Delete Community Policy
 * DELETE /api/core/policy/:policy_id
   * :policy_id: policy uuid
 
 ***
 
-## Edit Community Policies
+## Edit Community Policy
 Should policies be edited with the community or in a separate transaction?
 * POST /api/core/policy/:policy_id
   * :policy_id: policy uuid
@@ -251,46 +251,119 @@ Should policies be edited with the community or in a separate transaction?
 ***
 
 ## Create Collection
+* POST /api/core/community/:node/collection
+  * :node: community uuid
+  * Payload: Collection [Collection](objectSchema.md#collection)
+    * Array of [Metadata](objectSchema.md#metadata)
+    * Content Source Details
+    * Workflow and template attributes
+  * Returns [Collection](objectSchema.md#collection)
 
 ***
 
 ## Edit Collection Metadata
+* PUT /api/core/collection/:node
+  * :node: collection uuid
+  * Payload: Collection [Collection](objectSchema.md#collection)
+  * Returns [Collection](objectSchema.md#collection)
 
 ***
 
-## Edit Collection Policies
+## Add Collection Policies
+* POST /api/core/collection/:node/policy
+  * :node: collection uuid
+  * Payload: [Policy](objectSchema.md#policy)
+  * Returns: [Policy](objectSchema.md#policy)
 
 ***
 
-## Edit Collection Content Source
+## Delete Collection Policy
+* DELETE /api/core/policy/:policy_id
+  * :policy_id: policy uuid
+
+***
+
+## Edit Collection Policy
+Should policies be edited with the collection or in a separate transaction?
+* POST /api/core/policy/:policy_id
+  * :policy_id: policy uuid
+  * Payload: [Policy](objectSchema.md#policy)
+  * Returns: [Policy](objectSchema.md#policy)
 
 ***
 
 ## Curate Collection
+* POST /api/core/collection/:coll/curate
+  * :coll: collection uuid
+  * Payload: [CurationSpec](objectSchema.md#curationspec)
+    * Task Name
+    * Parameter
+  * Returns: [CurationResult](objectSchema.md#curationresult)
+
+***
+
+## Queue Curate Collection
+* POST /api/core/collection/:coll/queue-curate
+  * :coll: collection uuid
+  * Payload: [Policy](objectSchema.md#policy)
+  * Returns: [Policy](objectSchema.md#policy)
 
 ***
 
 ## Submit New Item to A Collection
+* POST /api/core/collection/:coll/submit
+  * :coll: collection uuid
+  * Payload: [Item](objectSchema.md#item)
+  * Returns: [Item](objectSchema.md#item)
 
 ***
 
 ## Edit Item in Workflow
+* PUT /api/core/item/:item
+  * :item: item uuid
+  * Payload: [Item](objectSchema.md#item)
+  * Returns: [Item](objectSchema.md#item)
 
 ***
 
 ## Review Item in Workflow
+* POST /api/core/item/:item/workflow
+  * :item: item uuid
+  * Payload: ?
+  * Returns: [Item](objectSchema.md#item)
+
+***
+
+## Accept Item License
+* POST /api/core/item/:item/workflow
+  * :item: item uuid
+  * Payload: ?
+  * Returns: [Item](objectSchema.md#item)
 
 ***
 
 ## Cancel Item Workflow
+* POST /api/core/item/:item/workflow
+  * :item: item uuid
+  * Payload: ?
+  * Returns: [Item](objectSchema.md#item)
 
 ***
 
 ## Edit Item Metadata
+* PUT /api/core/item/:item
+  * :item: item uuid
+  * Payload: [Item](objectSchema.md#item)
+  * Returns: [Item](objectSchema.md#item)
 
 ***
 
-## Modify Item Bitstreams
+## Add Bitstream to Item
+* POST /api/core/item/:item/Bitstream
+  * :item: item uuid
+  * Payload: [Bitstream](objectSchema.md#bitstream)
+    * Does binary upload need to occur separately?
+  * Returns: [Bitstream](objectSchema.md#bitstream)
 
 ***
 

@@ -133,3 +133,12 @@
   * Admin Action (Create, Edit, Export)
   * Workflow Action (Submit)
   * Aux Action (Usage stats)
+  
+## CurationSpec
+* Task Name
+* Scope Node: Repo / Community / Collection uuid
+* Task Parameters
+
+## CurationResult
+* CurationSpec
+* CurationOuput
