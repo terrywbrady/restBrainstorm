@@ -146,56 +146,58 @@ Alternate options for access
     * ?size = page size
     * ?sort-mode = choose from available sort options, the default sort will be used if not specified
     * POST Content - solr query for "search" repo, may include advanced search text and facet values
-  * This call will load all of the relevant resources which could be called individually
-    * Get breadcrumb data
-      * GET /api/core/hierarchy/ancestors/:node
-        * "top" or repo uuid or comm/coll uuid
-        * returns Array of [MinimalDSO](objectSchema.md#minimaldso)
-    * Get Browse Options for whole repo / comm / coll
-      * GET /api/discovery/:node/browse-options
-        * :node = "top" or repo uuid or comm/coll uuid
-    * Get Facet Options related to search hits
-      * GET /api/discovery/:node/search/facets
-        * :node = "top" or repo uuid or comm/coll uuid
-        * ?query = solr query for "search" repo
-    * Return the list of available sort modes for a particular node
-      * GET /api/discovery/:node/sort-modes
-        * :node = "top" or repo uuid or comm/coll uuid
-    * Return the list of available advanced search filters for a particular node
-      * GET /api/discovery/:node/search-filters
-        * :node = "top" or repo uuid or comm/coll uuid
-    * Assumption: Discovery service will return core metadata for each item
-    * Get bitstreams for search results (iterate over results)
-      * GET /api/core/bitstreams/:node/:bundle/:num
-        * :node = dso uuid
-        * :bundle - defaults to THUMBNAIL
-        * :depth = 1 to pull primary bitstream
-    * Get Available Actions for the Node (edit item, usage stats)
-      * GET /api/actions/:node
-        * :node = "top" or repo uuid
-        * returns Array of [Action](objectSchema.md#action)
-
+    * returns [NodeContext](objectSchema.md#nodecontext) with search results and facets tailored to hits
+  
 ***  
 
 ## Select Facet
 * See Search Entire Repository / Community / Collection
   * This option updates the POST data content
+  * returns [NodeContext](objectSchema.md#nodecontext) with search results and facets tailored to hits
 
 ***  
 
 ## Download Bitstream 
+  * GET /api/bitstream/download/:bitstream
+    * :bitstream: uuid of bitstream
+    * returns BINARY data 
 
 ***  
 
 ## Browse to inaccessible community/collection
+* Browse a community or collection page, retrieve relevant resources
+* Get core metadata data for community/collection (name, handle)
+  * GET /api/core/dso/:node
+    * :node = community/collection uuid
+    * returns [MinimalDSO](objectSchema.md#minimaldso)
+      * status fields within the object indicate that it is inaccessible
+* Get NodeContext for the community/collection
+  * GET /api/node-context/:node
+    * :node: "top" or repo uuid  
+    * :depth: 0 to pull all community descendants
+    * returns [NodeContext](objectSchema.md#nodecontext)
+
 
 ***
 
 ## Browse to inaccessible item
+* Browse to an item page
+* Get core metadata data for item (name, handle)
+  * GET /api/core/dso/:node
+    * :node = item uuid
+    * returns [MinimalDSO](objectSchema.md#minimaldso)
+      * status fields within the object indicate that it is inaccessible
+* Get breadcrumb data
+  * GET /api/core/hierarchy/ancestors/:node
+    * :node = item uuid
+    * returns Array of [MinimalDSO](objectSchema.md#minimaldso)
 
 ***
 
 ## Attempt to Download Bitstream (inaccessible to user)
+  * GET /api/bitstream/download/:bitstream
+    * :bitstream: uuid of bitstream
+    * returns HTTP error code if inaccessible
   
 ***
 

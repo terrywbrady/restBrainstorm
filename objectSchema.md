@@ -68,28 +68,39 @@
 
 # Brainstorm Object Types
 
-# NodeContext
+## SolrMetadata
+* field: String
+* value: String
+* hit: String representation of values with search hits embedded
+
+## SearchResult
+* dso: MinimalDSO
+* metadata: Array of SolrMetadata 
+* snippet: Array of SolrMetadata
+
+## NodeContext
 * breadcrumb: array of MinimalDSO
 * descendants: Hierarchy
 * browseOptions: Array of Option
 * browseFacets: Array of Facet
 * actions: Array of Actions
+* searchResults: Array of SearchResult
 
-# Hierarchy
+## Hierarchy
 * node: MinimalDSO (repo, community, collection)  
 * children: Array of Hierarchy 
 
-# Property
+## Property
 * module - String
 * name - String
 * dataType - Number, String, Array, Date, Map
 * value - Object
 
-# Option
+## Option
 * name - nmtoken string to be passed as a URL
 * desecription - String describing the option
 
-# Facet
+## Facet
 * facetName - String
 * facetType - Value sorted, alpha sorted
 * moreUrl - Url to retrieve more values
@@ -98,7 +109,7 @@
   * valueCount - Number
   * url - url for facet?
 
-# Action
+## Action
 * name - String - action name
 * actionType - enum categorizing action behavior
 * url - Url to invoke action
