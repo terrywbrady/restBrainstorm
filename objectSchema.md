@@ -8,28 +8,34 @@
 * handle: String
 * url() : String 
 * accessible: enum of accessibility summary (for current user)
-* toDSO(): DSO
+* toDSO(): [DSO](#dso)
 
-## DSO extends MinimalDSO
-* policies(): Array of Policy
-* metadata(): Array of Metadata
+## DSO 
+* extends [MinimalDSO](#minimaldso)
+* policies(): Array of [Policy](#policy)
+* metadata(): Array of [Metadata](#metadata)
 
-## HierarchicalDSO extends DSO
-* breadcrumb: Array of MinimalDSO
-* descendants: Hierarchy
+## HierarchicalDSO 
+* extends DSO
+* breadcrumb: Array of [MinimalDSO](#minimaldso)
+* descendants: [Hierarchy](#hierarchy)
 
-## Repository extends HierarchicalDSO
+## Repository 
+* extends [HierarchicalDSO](#hierarchicaldso)
 
-## Community extends HierarchicalDSO
+## Community 
+* extends [HierarchicalDSO](#hierarchicaldso)
 
-## Collection extends HierarchicalDSO
+## Collection 
+* extends [HierarchicalDSO](#hierarchicaldso)
 * items: Array of Items
 * contentSource: enum
 
-## Item extends DSO
-* breadcrumb: Array of MinimalDSO
-* bitstreams: Array of Bitstream
-* submitter: EPerson
+## Item 
+* extends [DSO](#dso)
+* breadcrumb: Array of [MinimalDSO](#minimaldso)
+* bitstreams: Array of [Bitstream](#bitstream)
+* submitter: [EPerson](#eperson)
 * discoverable: boolean
 * withdrawn: boolean
 * in_archive: boolean
@@ -37,7 +43,8 @@
 ## Bundle 
 * Can we abstract this out so REST client does not directly manipulate this?
 
-## Bitstream extends DSO
+## Bitstream 
+* extends [DSO](#dso)
 * parentItem: Item
 * bundleName: String
 * sequence: Number
@@ -50,6 +57,12 @@
 * associatedItems: Array of Object
   .bundleName
   .bitstream
+  
+## EPerson
+* extends [DSO](#dso)
+
+## EPersonGroup
+* extends [DSO](#dso)
 
 ## Metadata
 * dspaceObject: UUID
@@ -63,8 +76,10 @@
 * authority: String
 * confidence: Number
 
-## Policy - DSpace access policy info
-* dspaceObject 
+## Policy 
+* dspaceObject: [DSO](#dso)
+* personOrGroup: [DSO](#dso)
+* action: enum
 
 # Brainstorm Object Types
 
@@ -74,21 +89,21 @@
 * hit: String representation of values with search hits embedded
 
 ## SearchResult
-* dso: MinimalDSO
+* dso: [MinimalDSO](#minimaldso)
 * metadata: Array of [SolrMetadata](#solrmetadata) 
 * snippet: Array of [SolrMetadata](#solrmetadata)
 
 ## NodeContext
 * breadcrumb: array of [MinimalDSO](#minimaldso)
-* descendants: Hierarchy
-* browseOptions: Array of Option
-* browseFacets: Array of Facet
-* actions: Array of Actions
-* searchResults: Array of SearchResult
+* descendants: [Hierarchy](#hierarchy)
+* browseOptions: Array of [Option](#option)
+* browseFacets: Array of [Facet](#facet)
+* actions: Array of [Action](#action)
+* searchResults: Array of [SearchResult](#searchresult)
 
 ## Hierarchy
-* node: MinimalDSO (repo, community, collection)  
-* children: Array of Hierarchy 
+* node: [MinimalDSO](#minimaldso) (repo, community, collection)  
+* children: Array of [Hierarchy](#hierarchy) 
 
 ## Property
 * module - String
